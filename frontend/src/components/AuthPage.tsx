@@ -119,7 +119,7 @@ export default function AuthPage() {
                   margin="normal"
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={7}>
                 <TextField
                   fullWidth
                   label="House"
