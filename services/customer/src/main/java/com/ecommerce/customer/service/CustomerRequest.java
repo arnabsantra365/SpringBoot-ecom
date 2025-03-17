@@ -15,6 +15,8 @@ public record CustomerRequest(
         @NotNull(message="required email")
         @Email(message = "Not a valid email")
         String email,
-        Address address
+        Address address,
+        @NotNull(message="required password")
+        String password
 ) {
 }

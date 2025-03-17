@@ -4,6 +4,7 @@ import com.ecommerce.customer.models.Customer;
 import com.ecommerce.customer.service.CustomerRequest;
 import com.ecommerce.customer.service.CustomerResponse;
 import com.ecommerce.customer.service.CustomerService;
+import com.ecommerce.customer.service.LoginRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
+//@CrossOrigin("*")
 @RequestMapping("/v1/api/customer")
 //@RequiredArgsConstructor
 public class CutomerController {
@@ -30,6 +33,13 @@ public class CutomerController {
         return ResponseEntity.ok(customerService.createCustomer(request));
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<?> loginCustomer(
+            @RequestBody LoginRequest loginRequest
+            ){
+
+        return ResponseEntity.ok(customerService.loginCustomer(loginRequest));
+    }
 
     @GetMapping("/getAll")
     public ResponseEntity<List<CustomerResponse>> findAll() {

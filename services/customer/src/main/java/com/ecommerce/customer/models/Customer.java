@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Table(name="customers")
 @Data
 @Builder
-@NoArgsConstructor
+//@NoArgsConstructor
 @AllArgsConstructor
 public class Customer {
     @Id
@@ -21,13 +21,36 @@ public class Customer {
     @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn(name="add_id",referencedColumnName = "id",nullable = false)
     private Address address;
+    @Column(name="password",nullable = false)
+    private String password;
+    @Transient
+    private String confirmPassword;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
     public Customer() {}
 
-    public Customer(String firstname, String lastname, String email, Address address) {
+    public Customer(String firstname, String lastname, String email, Address address,String password, String confirmPassword) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.address = address;
+        this.password=password;
+        this.confirmPassword=confirmPassword;
     }
     public Integer getId() {
         return id;
@@ -75,6 +98,8 @@ public class Customer {
         this.lastname = builder.lastname;
         this.email = builder.email;
         this.address=builder.address;
+        this.password=builder.password;
+
     }
 
     // Static inner Builder class
@@ -84,6 +109,7 @@ public class Customer {
         private String lastname;
         private String email;
         private Address address;
+        private String password;
         public CustomerBuilder id(Integer id) {
             this.id = id;
             return this;
@@ -106,6 +132,10 @@ public class Customer {
 
         public CustomerBuilder address(Address address){
             this.address=address;
+            return this;
+        }
+        public CustomerBuilder password(String password){
+            this.password=password;
             return this;
         }
 

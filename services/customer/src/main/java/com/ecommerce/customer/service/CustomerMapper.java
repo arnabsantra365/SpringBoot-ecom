@@ -3,6 +3,7 @@ package com.ecommerce.customer.service;
 import com.ecommerce.customer.models.Address;
 import com.ecommerce.customer.models.Customer;
 import jakarta.validation.Valid;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 public class CustomerMapper {
 
     public Customer toCustomer(@Valid CustomerRequest request) {
+         final BCryptPasswordEncoder passwordencoder = new BCryptPasswordEncoder();
 
         return Customer.builder()
                 .id(request.id())
@@ -18,6 +20,7 @@ public class CustomerMapper {
                 .lastname(request.lastname())
                 .email(request.email())
                 .address(request.address())
+                .password(passwordencoder.encode(request.password()))
                 .build();
     }
 
