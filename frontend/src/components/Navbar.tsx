@@ -36,8 +36,8 @@ export default function Navbar() {
 
         {/* Navigation Links - Shown only on large screens */}
         <Box sx={{ display: { xs: "none", md: "flex" } }}>
-          <Button color="inherit">Products</Button>
-          <Button color="inherit">Orders</Button>
+          <Button color="inherit" component={Link} to="/getproducts">Products</Button>
+          <Button color="inherit" >Orders</Button>
           <Button color="inherit" component={Link} to="/login">Login</Button>
 
 

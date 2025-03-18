@@ -4,6 +4,7 @@ import AuthPage from './components/AuthPage'
 import Navbar from './components/Navbar'
 import HomePage from './components/HomePage';
 import ProductForm from './components/ProductForm';
+import ProductList from './components/ProductList';
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
     <Routes>
     <Route path="/" element={<HomePage/>} />
     <Route path="/login" element={<AuthPage />} />
+    <Route path="/getproducts" element={<ProductList/>}/>
     <Route path="/product" element={<ProductForm/>}/>
     </Routes>
     </Router>
