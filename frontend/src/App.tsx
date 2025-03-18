@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AuthPage from './components/AuthPage'
 import Navbar from './components/Navbar'
 import HomePage from './components/HomePage';
+import ProductForm from './components/ProductForm';
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
     <Routes>
     <Route path="/" element={<HomePage/>} />
     <Route path="/login" element={<AuthPage />} />
+    <Route path="/product" element={<ProductForm/>}/>
     </Routes>
     </Router>
       
