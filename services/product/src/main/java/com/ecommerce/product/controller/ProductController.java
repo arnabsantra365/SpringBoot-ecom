@@ -30,6 +30,11 @@ public class ProductController {
     ) {
         return ResponseEntity.ok(productService.findById(productId));
     }
+    @GetMapping("/all")
+    public ResponseEntity<List<ProductResponse>> getAllProduct(){
+        return ResponseEntity.ok(productService.getProducts());
+    }
+
     @PostMapping("/purchase")
     public ResponseEntity<List<ProductPurchaseResponse>> purchaseResponse(@RequestBody @Valid List<ProductPurchaseRequest> productPurchaseRequest){
         return ResponseEntity.ok(productService.purchaseProduct(productPurchaseRequest));

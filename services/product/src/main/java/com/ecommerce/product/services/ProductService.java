@@ -2,6 +2,7 @@ package com.ecommerce.product.services;
 
 import com.ecommerce.product.exception.ProductPurchaseException;
 import com.ecommerce.product.models.Category;
+import com.ecommerce.product.models.Product;
 import com.ecommerce.product.repos.CategoryRepo;
 import com.ecommerce.product.repos.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -37,7 +38,6 @@ public class ProductService {
         productRepository.save(mapper.toProduct(productRequest,category));
         return "product saved";
     }
-
 //    @Transactional
     public ProductResponse findById(Integer productId) {
         return productRepository.findById(productId)
@@ -70,5 +70,10 @@ public class ProductService {
             purchasedProducts.add(mapper.toProductPurchase(product, productRequest.quantity()));
         }
         return purchasedProducts;
+    }
+
+    public List<ProductResponse> getProducts() {
+        List<Product> products = productRepository.findAll();
+        return products.stream().map(mapper::toProductResponse).toList();
     }
 }
