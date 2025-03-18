@@ -6,6 +6,6 @@ public record ProductResponse(Integer id,
                               double availableQuantity,
                               Long price,
                               Integer categoryId,
-                              String categoryName,
-                              String categoryDescription) {
+                              String categoryName
+                         ) {
 }

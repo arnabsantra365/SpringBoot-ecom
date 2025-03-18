@@ -1,6 +1,8 @@
 package com.ecommerce.product.services;
 
 import com.ecommerce.product.exception.ProductPurchaseException;
+import com.ecommerce.product.models.Category;
+import com.ecommerce.product.repos.CategoryRepo;
 import com.ecommerce.product.repos.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -17,6 +19,7 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository productRepository;
     private final ProductMapper mapper;
+    private final CategoryRepo categoryRepo;
 
 //    public ProductService(ProductRepository productRepository, ProductMapper mapper) {
 //        this.productRepository = productRepository;
@@ -25,9 +28,16 @@ public class ProductService {
 
     @Transactional
     public String createProduct( ProductRequest productRequest) {
-        productRepository.save(mapper.toProduct(productRequest));
+        Category category = categoryRepo.findByName(productRequest.categoryName())
+                .orElseGet(() -> {
+                    Category newCategory = new Category();
+                    newCategory.setName(productRequest.categoryName());
+                    return categoryRepo.save(newCategory);
+                });
+        productRepository.save(mapper.toProduct(productRequest,category));
         return "product saved";
     }
+
 //    @Transactional
     public ProductResponse findById(Integer productId) {
         return productRepository.findById(productId)

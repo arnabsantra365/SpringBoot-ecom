@@ -14,6 +14,6 @@ public record ProductRequest(
         @Positive(message = "Price should be positive")
         Long price,
         @NotNull(message = "Product category is required")
-        Integer categoryId
+        String categoryName
 ) {
 }
