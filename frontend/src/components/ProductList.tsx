@@ -8,14 +8,16 @@ import {
     Typography,
     TextField,
     MenuItem,
+    Button
   } from "@mui/material";
+  import { useCart } from "../context/CartContext";
 const ProductList = () =>{
     const [products,setProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [categories,setCategories] = useState<string[]>([]);
     const [selectedCategory, setSelectedCategory] = useState("");
     const [priceRange, setPriceRange] = useState<number>(0);
-
+    const { addToCart } = useCart();
     useEffect(()=>{
         axios.get("http://localhost:8050/v1/api/products/all").then((response)=>{
             setProducts(response.data);
@@ -91,6 +93,9 @@ const ProductList = () =>{
                     <Typography variant="body2" color="primary">
                       Category: {product.categoryName}
                     </Typography>
+                    <Button variant="contained" color="primary" onClick={() => addToCart(product)}>
+                Add to Cart
+              </Button>
                   </CardContent>
                 </Card>
               </Grid>
