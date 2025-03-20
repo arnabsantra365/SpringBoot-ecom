@@ -1,10 +1,13 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { useCart } from "../context/CartContext";
 import { Button, List, ListItem, Typography } from "@mui/material";
 import axios from "axios";
 
 export default function CartPage() {
   const { cart, removeFromCart, clearCart } = useCart();
+  useEffect(() => {
+    console.log("Cart updated:", cart);
+  }, [cart]);
 
   const handleCheckout = () => {
     const orderRequest = {

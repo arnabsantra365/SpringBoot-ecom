@@ -28,6 +28,7 @@ const ProductList = () =>{
               setCategories(uniqueCategories);
         });
     },[]);
+    // console.log(products);
 
     useEffect(() => {
         let filtered = products;

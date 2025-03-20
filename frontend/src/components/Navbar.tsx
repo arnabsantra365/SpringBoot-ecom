@@ -1,9 +1,11 @@
 import React from "react";
 import { AppBar, Toolbar, IconButton, Typography, Box, Badge, Menu, MenuItem, Button } from "@mui/material";
 import { Link } from "react-router-dom";
-import { Mail as MailIcon, Notifications as NotificationsIcon, AccountCircle, MoreVert as MoreIcon } from "@mui/icons-material";
+import {ShoppingCart, Mail as MailIcon, Notifications as NotificationsIcon, AccountCircle, MoreVert as MoreIcon } from "@mui/icons-material";
+import { useCart } from "../context/CartContext";
 
 export default function Navbar() {
+    const {cart} = useCart();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMenuAnchorEl, setMobileMenuAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -42,9 +44,10 @@ export default function Navbar() {
 
 
           {/* Notification and Profile Icons */}
-          <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-            <Badge badgeContent={4} color="error">
-              <MailIcon />
+          <IconButton size="large" aria-label="show 4 new mails" color="inherit"
+          component={Link} to="/cart">
+            <Badge badgeContent={cart.length} color="error">
+              <ShoppingCart />
             </Badge>
           </IconButton>
           <IconButton size="large" aria-label="show 17 new notifications" color="inherit">
@@ -95,7 +98,7 @@ export default function Navbar() {
         <MenuItem onClick={handleMenuClose}>
           <IconButton size="large" color="inherit">
             <Badge badgeContent={4} color="error">
-              <MailIcon />
+              <ShoppingCart />
             </Badge>
           </IconButton>
           Messages
