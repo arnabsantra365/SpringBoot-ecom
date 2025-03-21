@@ -3,9 +3,11 @@ import { AppBar, Toolbar, IconButton, Typography, Box, Badge, Menu, MenuItem, Bu
 import { Link } from "react-router-dom";
 import {ShoppingCart, Mail as MailIcon, Notifications as NotificationsIcon, AccountCircle, MoreVert as MoreIcon } from "@mui/icons-material";
 import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
     const {cart} = useCart();
+    const {userId} = useAuth();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMenuAnchorEl, setMobileMenuAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -40,13 +42,13 @@ export default function Navbar() {
         <Box sx={{ display: { xs: "none", md: "flex" } }}>
           <Button color="inherit" component={Link} to="/getproducts">Products</Button>
           <Button color="inherit" >Orders</Button>
-          <Button color="inherit" component={Link} to="/login">Login</Button>
+          {!userId && <Button color="inherit" component={Link} to="/login">Login</Button>}
 
 
           {/* Notification and Profile Icons */}
           <IconButton size="large" aria-label="show 4 new mails" color="inherit"
           component={Link} to="/cart">
-            <Badge badgeContent={cart.length} color="error">
+            <Badge badgeContent={userId?cart.length:0} color="error">
               <ShoppingCart />
             </Badge>
           </IconButton>
@@ -129,7 +131,7 @@ export default function Navbar() {
         onClose={handleMenuClose}
       >
         <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-        <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+        <MenuItem component={Link} to="/logout" onClick={handleMenuClose}>Logout</MenuItem>
       </Menu>
     </AppBar>
   );

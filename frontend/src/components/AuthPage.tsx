@@ -11,8 +11,11 @@ import {
   Paper,
   Grid,
 } from "@mui/material";
-
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 export default function AuthPage() {
+  const {login} = useAuth();
+  const navigate = useNavigate();
   const [tab, setTab] = useState(0);
   const [form, setForm] = useState({
     firstname: "",
@@ -77,8 +80,15 @@ export default function AuthPage() {
       const response = await axios.post(endpoint, form, {
         headers: { "Content-Type": "application/json" },
       });
-      alert(`Successfully ${tab === 0 ? "Signed In" : "Signed Up"}!`);
-      console.log("Response:", response.data);
+      if (tab === 0) {
+        // On successful login, store customerId
+        console.log(response);
+        login(response.data.body.customerId);
+        alert("Signed in successfully!");
+        navigate("/"); // Redirect to home page
+      } else {
+        alert("Successfully signed up!");
+      }
     } catch (error: any) {
       console.error("Error:", error.response?.data || error.message);
       alert(error.response?.data?.message || "An error occurred!");

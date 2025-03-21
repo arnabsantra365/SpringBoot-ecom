@@ -7,6 +7,7 @@ import ProductForm from './components/ProductForm';
 import ProductList from './components/ProductList';
 import CartPage from './components/CartPage';
 import { CartProvider } from './context/CartContext';
+import SignOut from './components/SignOut';
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
     <Route path="/getproducts" element={<ProductList/>}/>
     <Route path="/product" element={<ProductForm/>}/>
     <Route path="/cart" element={<CartPage/>}/>
+    <Route path="/logout" element={<SignOut/>}/>
     </Routes>
     </Router>
     </CartProvider>

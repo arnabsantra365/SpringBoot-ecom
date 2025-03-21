@@ -2,8 +2,10 @@ import React,{useEffect} from "react";
 import { useCart } from "../context/CartContext";
 import { Button, List, ListItem, Typography } from "@mui/material";
 import axios from "axios";
+import { useAuth } from "../context/AuthContext";
 
 export default function CartPage() {
+  const {userId} = useAuth();
   const { cart, removeFromCart, clearCart } = useCart();
   useEffect(() => {
     console.log("Cart updated:", cart);
@@ -11,7 +13,7 @@ export default function CartPage() {
 
   const handleCheckout = () => {
     const orderRequest = {
-      customerId: 1, // Replace with logged-in customer ID
+      customerId: userId, // Replace with logged-in customer ID
       products: cart.map(({ id, quantity }) => ({ productId: id, quantity })),
     };
 
@@ -23,7 +25,10 @@ export default function CartPage() {
       })
       .catch((error) => alert("Failed to place order: " + error.message));
   };
-
+  if (!userId) {
+    return <Typography variant="h6">Please sign in to view your orders.</Typography>;
+  }
+  else{
   return (
     <div>
       <Typography variant="h4">Cart</Typography>
@@ -40,4 +45,5 @@ export default function CartPage() {
       </Button>
     </div>
   );
+}
 }
